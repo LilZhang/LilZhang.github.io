@@ -106,7 +106,7 @@ Durability 持久性
 锁
 共享锁(Shared Lock): 读锁，可多事务加读锁，与 X锁 互斥
 排他锁(X Lock): 可读可修改，与其它锁互斥">
-<meta property="og:updated_time" content="2017-01-08T07:08:48.249Z">
+<meta property="og:updated_time" content="2017-01-08T07:12:50.328Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="<草稿>关于事务的笔记">
 <meta name="twitter:description" content="事务ACID
@@ -399,8 +399,9 @@ Durability 持久性
 </ol>
 <h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><ol>
 <li>共享锁(Shared Lock): 读锁，可多事务加读锁，与 X锁 互斥</li>
-<li>排他锁(X Lock): 可读可修改，与其它锁互斥<a id="more"></a></li>
+<li>排他锁(X Lock): 可读可修改，与其它锁互斥</li>
 </ol>
+<a id="more"></a>
 <h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ol>
 <li>更新丢失: 事务A -&gt; M+，事务B -&gt; M+，结果 M++ ，事务A的更新丢失</li>
 <li>脏读: 事务A更新但未提交的修改被事务B读取到了</li>
