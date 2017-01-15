@@ -68,7 +68,7 @@
 <link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="事务," />
+  <meta name="keywords" content="数据结构,B 树," />
 
 
 
@@ -84,40 +84,30 @@
 
 
 
-<meta name="description" content="事务ACID
-Atomicity 原子性
-Consistency 一致性
-Isolation 隔离性
-Durability 持久性
-
-锁
-共享锁(Shared Lock): 读锁，可多事务加读锁，与 X锁 互斥
-排他锁(X Lock): 可读可修改，与其它锁互斥">
+<meta name="description" content="B 树
+图片均来自《数据结构与算法分析: Java语言描述》
+B 树存在的意义在计算机中，对硬盘的访问相比对内存的访问存在几个数量级的性能消耗。尽可能的减少对硬盘的访问次数，能够显著的提高程序性能。与二叉树相比，B 树拥有更少的层数，查找次数也更少，更适合于存储在硬盘中的数据。此外，B 树的改进版 B+ 树是大部分数据库的数据结构之一。">
 <meta property="og:type" content="article">
-<meta property="og:title" content="<速记>关于事务的笔记">
-<meta property="og:url" content="http://www.lilzh.com/p/6b8bc528/dft-transaction-0108.html">
+<meta property="og:title" content="<速记>关于 B 树">
+<meta property="og:url" content="http://www.lilzh.com/p/6ede22ad/dft-btree-0115.html">
 <meta property="og:site_name" content="Lil Zhang's Trash">
-<meta property="og:description" content="事务ACID
-Atomicity 原子性
-Consistency 一致性
-Isolation 隔离性
-Durability 持久性
-
-锁
-共享锁(Shared Lock): 读锁，可多事务加读锁，与 X锁 互斥
-排他锁(X Lock): 可读可修改，与其它锁互斥">
-<meta property="og:updated_time" content="2017-01-14T19:47:03.138Z">
+<meta property="og:description" content="B 树
+图片均来自《数据结构与算法分析: Java语言描述》
+B 树存在的意义在计算机中，对硬盘的访问相比对内存的访问存在几个数量级的性能消耗。尽可能的减少对硬盘的访问次数，能够显著的提高程序性能。与二叉树相比，B 树拥有更少的层数，查找次数也更少，更适合于存储在硬盘中的数据。此外，B 树的改进版 B+ 树是大部分数据库的数据结构之一。">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree.png">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree.png">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-57.png">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-55.png">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-40.png">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-40.png">
+<meta property="og:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-delete-99.png">
+<meta property="og:updated_time" content="2017-01-15T06:37:44.311Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="<速记>关于事务的笔记">
-<meta name="twitter:description" content="事务ACID
-Atomicity 原子性
-Consistency 一致性
-Isolation 隔离性
-Durability 持久性
-
-锁
-共享锁(Shared Lock): 读锁，可多事务加读锁，与 X锁 互斥
-排他锁(X Lock): 可读可修改，与其它锁互斥">
+<meta name="twitter:title" content="<速记>关于 B 树">
+<meta name="twitter:description" content="B 树
+图片均来自《数据结构与算法分析: Java语言描述》
+B 树存在的意义在计算机中，对硬盘的访问相比对内存的访问存在几个数量级的性能消耗。尽可能的减少对硬盘的访问次数，能够显著的提高程序性能。与二叉树相比，B 树拥有更少的层数，查找次数也更少，更适合于存储在硬盘中的数据。此外，B 树的改进版 B+ 树是大部分数据库的数据结构之一。">
+<meta name="twitter:image" content="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree.png">
 
 
 
@@ -145,13 +135,13 @@ Durability 持久性
 
 
 
-  <link rel="canonical" href="http://www.lilzh.com/p/6b8bc528/dft-transaction-0108.html"/>
+  <link rel="canonical" href="http://www.lilzh.com/p/6ede22ad/dft-btree-0115.html"/>
 
 
 
 
 
-  <title> <速记>关于事务的笔记 | Lil Zhang's Trash </title>
+  <title> <速记>关于 B 树 | Lil Zhang's Trash </title>
 </head>
 
 <body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
@@ -284,7 +274,7 @@ Durability 持久性
   
 
   <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-  <link itemprop="mainEntityOfPage" href="http://www.lilzh.com/p/6b8bc528/dft-transaction-0108.html">
+  <link itemprop="mainEntityOfPage" href="http://www.lilzh.com/p/6ede22ad/dft-btree-0115.html">
 
   <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
     <meta itemprop="name" content="Lil Zhang">
@@ -308,7 +298,7 @@ Durability 持久性
             
             
               
-                <速记>关于事务的笔记
+                <速记>关于 B 树
               
             
           </h1>
@@ -323,8 +313,8 @@ Durability 持久性
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-08T14:48:46+08:00">
-                2017-01-08
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-15T02:26:23+08:00">
+                2017-01-15
               </time>
             
 
@@ -364,8 +354,8 @@ Durability 持久性
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/p/6b8bc528/dft-transaction-0108.html#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count ds-thread-count" data-thread-key="p/6b8bc528/dft-transaction-0108.html" itemprop="commentCount"></span>
+                <a href="/p/6ede22ad/dft-btree-0115.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="p/6ede22ad/dft-btree-0115.html" itemprop="commentCount"></span>
                 </a>
               </span>
             
@@ -391,59 +381,90 @@ Durability 持久性
       
 
       
-        <h2 id="事务"><a href="#事务" class="headerlink" title="事务"></a>事务</h2><h3 id="ACID"><a href="#ACID" class="headerlink" title="ACID"></a>ACID</h3><ol>
-<li>Atomicity 原子性</li>
-<li>Consistency 一致性</li>
-<li>Isolation 隔离性</li>
-<li>Durability 持久性</li>
-</ol>
-<h3 id="锁"><a href="#锁" class="headerlink" title="锁"></a>锁</h3><ol>
-<li>共享锁(Shared Lock): 读锁，可多事务加读锁，与 X锁 互斥</li>
-<li>排他锁(X Lock): 可读可修改，与其它锁互斥</li>
-</ol>
-<a id="more"></a>
-<h3 id="常见问题"><a href="#常见问题" class="headerlink" title="常见问题"></a>常见问题</h3><ol>
-<li>更新丢失: 事务A -&gt; M+，事务B -&gt; M+，结果 M++ ，事务A的更新丢失</li>
-<li>脏读: 事务A更新但未提交的修改被事务B读取到了</li>
-<li>不可重复读: 事务B多次读取某个数据，发现值为多个(因为中间事务A提交了修改)</li>
-<li>幻读: 事务A将某数据1批量修改为2，事务B添加数据1，此记录为幻读</li>
-</ol>
-<h3 id="隔离等级"><a href="#隔离等级" class="headerlink" title="隔离等级"></a>隔离等级</h3><ol>
-<li><p>READ UNCOMMITTED<br>事务A修改了数据M后，立刻给该数据加上 S锁 (保证别的事务不会修改)，直至事务结束。<br>这样未提交修改也对别的事务可见。</p>
-</li>
-<li><p>READ COMMITTED<br>事务A修改了数据M后，立刻给该数据加上 X锁 (保证别的事务不会修改，且不能读取最新值)，直至事务结束。<br>提交后修改对别的事务可见。<br>可避免:</p>
-</li>
-</ol>
-<ul>
-<li>脏读</li>
+        <h2 id="B-树"><a href="#B-树" class="headerlink" title="B 树"></a>B 树</h2><img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree.png">
+<p>图片均来自《数据结构与算法分析: Java语言描述》</p>
+<h3 id="B-树存在的意义"><a href="#B-树存在的意义" class="headerlink" title="B 树存在的意义"></a>B 树存在的意义</h3><p>在计算机中，对硬盘的访问相比对内存的访问存在几个数量级的性能消耗。<br>尽可能的减少对硬盘的访问次数，能够显著的提高程序性能。<br>与二叉树相比，B 树拥有更少的层数，查找次数也更少，更适合于存储在硬盘中的数据。<br>此外，B 树的改进版 B+ 树是大部分数据库的数据结构之一。<br><a id="more"></a></p>
+<h3 id="B-树与二叉树的区别"><a href="#B-树与二叉树的区别" class="headerlink" title="B 树与二叉树的区别"></a>B 树与二叉树的区别</h3><ul>
+<li>二叉树的节点有两个子节点，小于节点值的子节点位于左边，大于节点值的子节点位于右边。</li>
+<li>M 阶 B 树的子节点不止两个，子节点数的范围为 [M / 2， M] 。</li>
+<li>二叉树的每个节点只有一个值，M 阶 B 树的每个节点有最多 M - 1 个关键字(具体数量为子节点数 - 1)，用以定位 M 个子节点。</li>
 </ul>
-<ol>
-<li>REPEATABLE READ<br>事务A修改了数据M后，立刻给该数据加上 X锁 (保证别的事务不会修改，且不能读取最新值)，直至事务结束。<br>事务A读取了数据M2后，立刻给该数据加上 S锁 (保证别的事务不会修改)，直至事务结束。<br>可避免:</li>
-</ol>
-<ul>
-<li>脏读</li>
-<li>不可重复读</li>
+<h3 id="M-阶-B-树的特性"><a href="#M-阶-B-树的特性" class="headerlink" title="M 阶 B 树的特性"></a>M 阶 B 树的特性</h3><ul>
+<li>数据项只存储在叶子节点上</li>
+<li>非叶子节点存储最多 M - 1 个关键字</li>
+<li>每个非叶子节点中，第 i 个关键字的值就是将其第 i + 1 个子节点(可以理解为右侧)作为根节点的<em>子B树</em>的最小值</li>
+<li>根节点可以是叶子节点(只存在数据项)，也可以是非叶子节点。当为后者时，子节点的范围为 [2, M] (根节点的子节点数的特殊对待)</li>
+<li>除根节点外，其余非叶子节点的子节点数的范围为 [M / 2， M] (向上取整)</li>
+<li>叶子节点能存储多少个数据？ [L / 2, L] (向上取整)，L 视情况而定 (比如某系统的 Page 大小为 8KB，每个数据的大小为 256B，则 L = 8KB / 256B = 32)</li>
 </ul>
-<ol>
-<li>SERIALIZATION<br>从MVCC并发控制退化到基于锁的并发控制<br>开销最大，并发度最低</li>
+<h3 id="如何根据环境条件确定-B-树的阶数-M-与叶子节点的容量-L"><a href="#如何根据环境条件确定-B-树的阶数-M-与叶子节点的容量-L" class="headerlink" title="如何根据环境条件确定 B 树的阶数 M 与叶子节点的容量 L"></a>如何根据环境条件确定 B 树的阶数 M 与叶子节点的容量 L</h3><ol>
+<li>现有某个系统，其 Page 大小为 8KB。从性能考虑，我们希望 B 树的每个节点都不超过 8KB。此为目标。</li>
+<li>B 树的节点的主要构成: 关键字(假设 32B/个 )，子节点引用(假设 4B/个 )，数据(假设 256B/条 )。</li>
+<li>阶数为 M ，易得：<code>32 * (M - 1) + 4 * M &lt;= 8 * 1024</code>，M 可取 228。</li>
+<li>叶子节点最大数据个数 L，<code>L = 8 * 1024 / 256</code>，L 可取 32。</li>
+<li>该例中 B 数可确定为最大 228 阶，叶子节点最多储存 32 条数据。</li>
+<li>复杂度为 O(log(N) / log(M / 2))，假设有 1E7 条数据(千万)，以该 228 阶 B 树排布只需最多 4 层(3.403取整)，查询最多 4 次。</li>
 </ol>
-<h3 id="Spring-中事务的传播规则"><a href="#Spring-中事务的传播规则" class="headerlink" title="Spring 中事务的传播规则"></a>Spring 中事务的传播规则</h3><p>Spring 中的事务实现: 主要基于 AOP(动态代理)</p>
-<ol>
-<li><p>Propagation REQUIRED<br>采用该传播规则的方法被调用时:<br>若已经存在一个活动的事务，则保持该事务；<br>若不存在活动事务，则开始一个新事务；<br>若该方法抛出异常，则回滚整个事务。</p>
+<h3 id="B-树的查找"><a href="#B-树的查找" class="headerlink" title="B 树的查找"></a>B 树的查找</h3><ul>
+<li>从根节点查找。</li>
+<li>若查找值小于关键字A，从关键字A的左子树继续查找。</li>
+<li>若查找值大于关键字A，小于关键字B，从两者中间的子树继续查找。</li>
+<li>若查找值大于关键字B，从关键字B的右子树继续查找。</li>
+<li>一直找到叶子节点，遍历叶子节点中的数据，找出对应值(若有)。</li>
+</ul>
+<h3 id="B-树的插入"><a href="#B-树的插入" class="headerlink" title="B 树的插入"></a>B 树的插入</h3><p>假设插入数据A</p>
+<ul>
+<li>查找到 A 所应在的叶子节点。</li>
+<li>若插入后叶子节点中的数据条数 &lt;= L ，无需调整。</li>
+<li>若插入后叶子节点中的数据条数 &gt; L:<ol>
+<li>将该叶子节点平均一分为二，原叶子节点取左半边，新叶子节点取右半边。</li>
+<li>父节点添加关键字，将新叶子节点作为该关键字右叶子节点，并将新叶子节点的最小值赋给该关键字。</li>
+<li>若父节点添加关键字后 &gt; (M - 1)，以<em>中间关键字</em>为界分割该父节点。</li>
+<li>分割后的左节点继承原有关系，提交<em>中间关键字</em>给祖父节点，作为祖父节点的新关键字。</li>
+<li>分割后的右节点为<em>中间关键字</em>的右节点。</li>
+<li>若祖父节点添加关键字后 &gt; (M - 1)，递归。</li>
+</ol>
 </li>
-<li><p>Propagation REQUIRED_NEW<br>采用该传播规则的方法被调用时:<br>不管是否存在活动事务，都开始一个新事务；<br>若存在原有活动事务，则原有活动事务被暂停；<br>若该方法抛出异常，(在异常处理完的情况下)新事务被回滚，不影响原有事务。</p>
+</ul>
+<img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree.png">
+<p>数据插入前的 B 树，此处 M = 5，L = 5</p>
+<img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-57.png">
+<p>将 57 插入到 B 树中</p>
+<img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-55.png">
+<p>将 55 插入到 B 树中</p>
+<img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-40.png">
+<p>将 40 插入到 B 树中，引起调整</p>
+<h3 id="B-树的删除"><a href="#B-树的删除" class="headerlink" title="B 树的删除"></a>B 树的删除</h3><p>假设删除数据A</p>
+<ul>
+<li>查找到 A 所应在的叶子节点。</li>
+<li>若删除后叶子节点中的数据条数 &gt;= L / 2 (向上取整)，无需调整。</li>
+<li>若删除后叶子节点中的数据条数 &lt; L / 2 (向上取整):<ul>
+<li>若该叶子节点的前一个叶子节点 P 的数据条数 &gt; L / 2，<ol>
+<li>删除A，取 P 的最后一条数据 B ，置于该叶子节点的头</li>
+<li>向上递归修改关键字A为B (一次即可)</li>
+</ol>
 </li>
-<li><p>Propagation NESTED<br>采用该传播规则的方法被调用时:<br>若已经存在一个活动事务，则沿用该活动事务，并在方法开始时创建一个 SAVEPOINT ；<br>若不存在活动事务，则开始一个新事务；<br>若该方法抛出异常，则回滚至最后一个 SAVEPOINT (没有 SAVEPOINT 则回滚全部事务)。</p>
-</li>
-<li><p>Propagation SUPPORTS<br>采用该传播规则的方法被调用时:<br>若已经存在一个活动事务，则沿用该活动事务；<br>若不存在活动事务，则不使用事务；<br>若该方法抛出异常且在活动事务中，则回滚事务。</p>
-</li>
-<li><p>Propagation NOT_SUPPORTED<br>采用该传播规则的方法被调用时:<br>若已经存在一个活动事务，暂停该活动事务；<br>若不存在活动事务，则不使用事务。</p>
-</li>
-<li><p>Propagation NEVER<br>采用该传播规则的方法被调用时:<br>若已经存在一个活动事务，则抛出异常；<br>若不存在活动事务，则不使用事务。</p>
-</li>
-<li><p>Propagation MANDATORY<br>采用该传播规则的方法被调用时:<br>若已经存在一个活动事务，暂停该活动事务；<br>若不存在活动事务，则抛出异常。</p>
+<li>若该叶子节点的前一个叶子节点 P 的数据条数 &lt;= L / 2<ol>
+<li>删除A，将该叶子节点剩下的数据合并至前一个叶子节点 P 后</li>
+<li>删除以该叶子节点为其右子节点的关键字 K (其父关键字)</li>
+<li>若 K 所在的节点 N 的关键字数在删除后 &lt; (M - 1) / 2，执行如下操作(向右侧借取节点):<ul>
+<li>借取节点 N 的前一个同级节点 PN 的最后一个关键字 PK 及其右叶子节点 PKN</li>
+<li>将关键字 PK 插入节点 N 的头一个关键字</li>
+<li>将叶子节点 PKN 作为 PK 的左子节点</li>
+<li>将 PK 与 节点 N 的父关键字对调</li>
+<li>检查 PN 的关键字数是否 &lt; (M - 1) / 2，若是则重复上述步骤(N = PN)</li>
+</ul>
 </li>
 </ol>
+</li>
+</ul>
+</li>
+</ul>
+<img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-insert-40.png">
+<p>数据删除前的 B 树，此处 M = 5，L = 5</p>
+<img src="http://oj22snmrf.bkt.clouddn.com/image/post/dft-btree-0115/b-tree-delete-99.png">
+<p>从 B 树中删除 99，引起叶子节点合并</p>
+<blockquote class="blockquote-center">再不睡天就要亮了啊。</blockquote>
 
       
     </div>
@@ -467,7 +488,9 @@ Durability 持久性
       
         <div class="post-tags">
           
-            <a href="/tags/事务/" rel="tag"># 事务</a>
+            <a href="/tags/数据结构/" rel="tag"># 数据结构</a>
+          
+            <a href="/tags/B-树/" rel="tag"># B 树</a>
           
         </div>
       
@@ -476,8 +499,8 @@ Durability 持久性
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/p/ef6512/happy-new-year.html" rel="next" title="2017 新年快乐，少年们">
-                <i class="fa fa-chevron-left"></i> 2017 新年快乐，少年们
+              <a href="/p/6b8bc528/dft-transaction-0108.html" rel="next" title="<速记>关于事务的笔记">
+                <i class="fa fa-chevron-left"></i> <速记>关于事务的笔记
               </a>
             
           </div>
@@ -485,10 +508,6 @@ Durability 持久性
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/p/6ede22ad/dft-btree-0115.html" rel="prev" title="<速记>关于 B 树">
-                <速记>关于 B 树 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -514,8 +533,8 @@ Durability 持久性
           
   <div class="comments" id="comments">
     
-      <div class="ds-thread" data-thread-key="p/6b8bc528/dft-transaction-0108.html"
-           data-title="<速记>关于事务的笔记" data-url="http://www.lilzh.com/p/6b8bc528/dft-transaction-0108.html">
+      <div class="ds-thread" data-thread-key="p/6ede22ad/dft-btree-0115.html"
+           data-title="<速记>关于 B 树" data-url="http://www.lilzh.com/p/6ede22ad/dft-btree-0115.html">
       </div>
     
   </div>
@@ -626,7 +645,7 @@ Durability 持久性
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#事务"><span class="nav-number">1.</span> <span class="nav-text">事务</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#ACID"><span class="nav-number">1.1.</span> <span class="nav-text">ACID</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#锁"><span class="nav-number">1.2.</span> <span class="nav-text">锁</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常见问题"><span class="nav-number">1.3.</span> <span class="nav-text">常见问题</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#隔离等级"><span class="nav-number">1.4.</span> <span class="nav-text">隔离等级</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Spring-中事务的传播规则"><span class="nav-number">1.5.</span> <span class="nav-text">Spring 中事务的传播规则</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#B-树"><span class="nav-number">1.</span> <span class="nav-text">B 树</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树存在的意义"><span class="nav-number">1.1.</span> <span class="nav-text">B 树存在的意义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树与二叉树的区别"><span class="nav-number">1.2.</span> <span class="nav-text">B 树与二叉树的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#M-阶-B-树的特性"><span class="nav-number">1.3.</span> <span class="nav-text">M 阶 B 树的特性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#如何根据环境条件确定-B-树的阶数-M-与叶子节点的容量-L"><span class="nav-number">1.4.</span> <span class="nav-text">如何根据环境条件确定 B 树的阶数 M 与叶子节点的容量 L</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的查找"><span class="nav-number">1.5.</span> <span class="nav-text">B 树的查找</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的插入"><span class="nav-number">1.6.</span> <span class="nav-text">B 树的插入</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#B-树的删除"><span class="nav-number">1.7.</span> <span class="nav-text">B 树的删除</span></a></li></ol></li></ol></div>
             
 
           </div>
