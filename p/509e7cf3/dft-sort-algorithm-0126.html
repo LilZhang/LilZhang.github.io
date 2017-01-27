@@ -1,0 +1,813 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+  
+  
+  
+  
+
+  
+    
+    
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+    
+    
+    <link href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext" rel="stylesheet" type="text/css">
+  
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.0" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="算法,排序," />
+
+
+
+
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=5.1.0" />
+
+
+
+
+
+
+<meta name="description" content="简单排序以下皆基于一个将大小为 n 的乱序数组排序成从小到大的有序数组的例子。
+冒泡排序(Bubble Sort)
+相邻两项元素比较，若不符合排序规则则交换元素。
+时间复杂度: O(N ^ 2)
+
+
+将数组第 0 个元素与第 1 个元素比较。若第 0 个元素的值大于第 1 个元素，交换第 0 个元素与第 1 个元素，反之无操作。
+将数组第 1 个元素与第 2 个元素比较。若第 1 个元素的值大于第">
+<meta property="og:type" content="article">
+<meta property="og:title" content="<速记>关于排序算法">
+<meta property="og:url" content="http://www.lilzh.com/p/509e7cf3/dft-sort-algorithm-0126.html">
+<meta property="og:site_name" content="Lil Zhang's Trash">
+<meta property="og:description" content="简单排序以下皆基于一个将大小为 n 的乱序数组排序成从小到大的有序数组的例子。
+冒泡排序(Bubble Sort)
+相邻两项元素比较，若不符合排序规则则交换元素。
+时间复杂度: O(N ^ 2)
+
+
+将数组第 0 个元素与第 1 个元素比较。若第 0 个元素的值大于第 1 个元素，交换第 0 个元素与第 1 个元素，反之无操作。
+将数组第 1 个元素与第 2 个元素比较。若第 1 个元素的值大于第">
+<meta property="og:updated_time" content="2017-01-27T21:05:53.084Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="<速记>关于排序算法">
+<meta name="twitter:description" content="简单排序以下皆基于一个将大小为 n 的乱序数组排序成从小到大的有序数组的例子。
+冒泡排序(Bubble Sort)
+相邻两项元素比较，若不符合排序规则则交换元素。
+时间复杂度: O(N ^ 2)
+
+
+将数组第 0 个元素与第 1 个元素比较。若第 0 个元素的值大于第 1 个元素，交换第 0 个元素与第 1 个元素，反之无操作。
+将数组第 1 个元素与第 2 个元素比较。若第 1 个元素的值大于第">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    sidebar: {"position":"left","display":"hide"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://www.lilzh.com/p/509e7cf3/dft-sort-algorithm-0126.html"/>
+
+
+
+
+
+  <title> <速记>关于排序算法 | Lil Zhang's Trash </title>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+
+  <div class="container one-collumn sidebar-position-left page-post-detail ">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">Lil Zhang's Trash</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+    
+      <p class="site-subtitle">吃土的少年</p>
+    
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+  <link itemprop="mainEntityOfPage" href="http://www.lilzh.com/p/509e7cf3/dft-sort-algorithm-0126.html">
+
+  <span style="display:none" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Lil Zhang">
+    <meta itemprop="description" content="">
+    <meta itemprop="image" content="/images/oops.png">
+  </span>
+
+  <span style="display:none" itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+    <meta itemprop="name" content="Lil Zhang's Trash">
+    <span style="display:none" itemprop="logo" itemscope itemtype="http://schema.org/ImageObject">
+      <img style="display:none;" itemprop="url image" alt="Lil Zhang's Trash" src="">
+    </span>
+  </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                <速记>关于排序算法
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2017-01-26T18:19:56+08:00">
+                2017-01-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/速记/" itemprop="url" rel="index">
+                    <span itemprop="name">速记</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/p/509e7cf3/dft-sort-algorithm-0126.html#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count ds-thread-count" data-thread-key="p/509e7cf3/dft-sort-algorithm-0126.html" itemprop="commentCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+
+          
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="简单排序"><a href="#简单排序" class="headerlink" title="简单排序"></a>简单排序</h2><p>以下皆基于一个将大小为 n 的乱序数组排序成从小到大的有序数组的例子。</p>
+<h3 id="冒泡排序-Bubble-Sort"><a href="#冒泡排序-Bubble-Sort" class="headerlink" title="冒泡排序(Bubble Sort)"></a>冒泡排序(Bubble Sort)</h3><ul>
+<li>相邻两项元素比较，若不符合排序规则则交换元素。</li>
+<li>时间复杂度: O(N ^ 2)</li>
+</ul>
+<ol>
+<li>将数组第 0 个元素与第 1 个元素比较。若第 0 个元素的值大于第 1 个元素，交换第 0 个元素与第 1 个元素，反之无操作。</li>
+<li>将数组第 1 个元素与第 2 个元素比较。若第 1 个元素的值大于第 2 个元素，交换第 1 个元素与第 2 个元素，反之无操作。</li>
+<li>以此类推，n-1 步之后，数组中最大的元素被‘冒泡’至数组末端</li>
+<li>重复步骤 1 - 3，将数组中第二大的元素‘冒泡’至数组的次末端(末端已是最大，无需再调整)。</li>
+<li>以此类推，直至排序完成。</li>
+</ol>
+<a id="more"></a>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">bubbleSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = leftBound; i &lt; rightBound; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = leftBound; j &lt; rightBound; j++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[j] &gt; <span class="built_in">array</span>[j + <span class="number">1</span>])    <span class="comment">// 比较相邻元素的值</span></div><div class="line">            &#123;</div><div class="line">                <span class="keyword">int</span> temp = <span class="built_in">array</span>[j + <span class="number">1</span>];    <span class="comment">// 若左项大于右项，则两值交换</span></div><div class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = <span class="built_in">array</span>[j];</div><div class="line">                <span class="built_in">array</span>[j] = temp;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        --rightBound;                       <span class="comment">// 退出内循环时最后的元素已经有序，可以不做处理</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="选择排序-Select-Sort"><a href="#选择排序-Select-Sort" class="headerlink" title="选择排序(Select Sort)"></a>选择排序(Select Sort)</h3><ul>
+<li>依次遍历数组选择最小的元素，并与当前元素替换</li>
+<li>时间复杂度: O(N ^ 2)</li>
+</ul>
+<ol>
+<li>从第 0 个元素开始，遍历数组，找到最小的元素，与第 0 个元素交换。</li>
+<li>从第 1 个元素开始，遍历数组，找到最小的元素，与第 1 个元素交换。</li>
+<li>以此类推，直至排序完成。</li>
+</ol>
+<figure class="highlight arduino"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> selectSort(<span class="keyword">int</span>[] <span class="keyword">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    <span class="built_in">for</span> (<span class="keyword">int</span> i = leftBound; i &lt;= rightBound; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> <span class="built_in">min</span> = <span class="keyword">array</span>[i];</div><div class="line">        <span class="keyword">int</span> minIndex = i;</div><div class="line"></div><div class="line">        <span class="built_in">for</span> (<span class="keyword">int</span> j = i; j &lt;= rightBound; j++)</div><div class="line">        &#123;</div><div class="line">            <span class="built_in">if</span> (<span class="built_in">min</span> &gt; <span class="keyword">array</span>[j])</div><div class="line">            &#123;</div><div class="line">                <span class="built_in">min</span> = <span class="keyword">array</span>[j];     <span class="comment">// 找出最小值</span></div><div class="line">                minIndex = j;       <span class="comment">// 找出最小值所在位置</span></div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">array</span>[minIndex] = <span class="keyword">array</span>[i]; <span class="comment">// 将最小值与第 n 个值替换</span></div><div class="line">        <span class="keyword">array</span>[i] = <span class="built_in">min</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="插入排序-Insert-Sort"><a href="#插入排序-Insert-Sort" class="headerlink" title="插入排序(Insert Sort)"></a>插入排序(Insert Sort)</h3><ul>
+<li>标记位左边的元素都是有序的，标记位右边的元素是待排序的</li>
+<li>将标记位元素插入至左边有序中的适当位置</li>
+<li>将原标记位后一个元素标记为新的标记位</li>
+<li>时间复杂度: O(N ^ 2)</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">insertSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">int</span> i = leftBound + <span class="number">1</span>; i &lt;= rightBound; i++)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">int</span> insert = <span class="built_in">array</span>[i];                      <span class="comment">// 获取标记位元素</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> j = i - <span class="number">1</span>; j &gt;= leftBound; j--)    <span class="comment">// 反向遍历标记位前的有序数组部分</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">if</span> (insert &gt; <span class="built_in">array</span>[j])                  <span class="comment">// 若在有序数组部分中找到小于自己的元素</span></div><div class="line">            &#123;                                       <span class="comment">// 说明为该元素位置，将之后的有序数组向后移一位</span></div><div class="line">                System.arraycopy(<span class="built_in">array</span>, j + <span class="number">1</span>, <span class="built_in">array</span>, j + <span class="number">2</span>, i - j - <span class="number">1</span>);</div><div class="line">                <span class="built_in">array</span>[j + <span class="number">1</span>] = insert;              <span class="comment">// 将该元素插入至该位置</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (j == leftBound)                <span class="comment">// 若没有在有序数组部分中找到小于自己的元素</span></div><div class="line">            &#123;                                       <span class="comment">// 说明该元素为有序数组部分的头部，需将有序数组整体向后移一位</span></div><div class="line">                System.arraycopy(<span class="built_in">array</span>, j, <span class="built_in">array</span>, j + <span class="number">1</span>, i - j);</div><div class="line">                <span class="built_in">array</span>[j] = insert;                  <span class="comment">// 将该元素插入至头部</span></div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h2 id="高级排序"><a href="#高级排序" class="headerlink" title="高级排序"></a>高级排序</h2><h3 id="归并排序-Merge-Sort"><a href="#归并排序-Merge-Sort" class="headerlink" title="归并排序(Merge Sort)"></a>归并排序(Merge Sort)</h3><ul>
+<li>假设有一乱序数组，可做如下排序</li>
+<li>新增一个与其大小相同的操作数组</li>
+<li>将数组一分为二，成为两个有序子数组array1, array2</li>
+<li>将 array1[1] 与 array2[1] 相比，若 array1[1] 小则将其放入操作数组</li>
+<li>将 array1[2] 与 array2[1] 相比，若 array2[1] 小则将其放入操作数组，以此类推</li>
+<li>若比较结束，某一子数组中仍有元素，则将其中的元素按顺序压入操作数组</li>
+<li>最后操作数组得到的就是一个有序的数组</li>
+<li>关于有序子数组如何得到: 通过递归调用自身，直至分割到每个子数组大小为 1 即可</li>
+<li>时间复杂度: O(N * logN)</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mergeSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    <span class="keyword">int</span>[] workSpace = <span class="keyword">new</span> <span class="keyword">int</span>[rightBound - leftBound + <span class="number">1</span>];      <span class="comment">// 归并排序需要一个额外的相同大小的操作数组来进行操作</span></div><div class="line">    recMergeSort(<span class="built_in">array</span>, workSpace, leftBound, rightBound);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">recMergeSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span>[] workSpace, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">if</span> (leftBound == rightBound)                                <span class="comment">// 如果递归到元素只有一个，不做处理，直接返回</span></div><div class="line">    &#123;</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> mid = (leftBound + rightBound) / <span class="number">2</span>;                     <span class="comment">// 将数组一分为二</span></div><div class="line">    recMergeSort(<span class="built_in">array</span>, workSpace, leftBound, mid);             <span class="comment">// 并分别处理</span></div><div class="line">    recMergeSort(<span class="built_in">array</span>, workSpace, mid + <span class="number">1</span>, rightBound);        <span class="comment">// 处理方式为再一分为二(递归调用)</span></div><div class="line">    merge(<span class="built_in">array</span>, workSpace, leftBound, mid, rightBound);        <span class="comment">// 对已二分的数组进行归并</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span>[] workSpace, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> mid, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> i = <span class="number">0</span>;</div><div class="line">    <span class="keyword">int</span> leftCursor = leftBound;                                 <span class="comment">// 分别从数组两个点开始</span></div><div class="line">    <span class="keyword">int</span> rightCursor = mid + <span class="number">1</span>;                                  <span class="comment">// 一个从起点开始，一个从中点开始</span></div><div class="line">                                                                <span class="comment">// 相当于将数组分作两半</span></div><div class="line"></div><div class="line">    <span class="keyword">while</span> (leftCursor &lt;= mid &amp;&amp; rightCursor &lt;= rightBound)</div><div class="line">    &#123;</div><div class="line">        workSpace[i++] = <span class="built_in">array</span>[leftCursor] &lt; <span class="built_in">array</span>[rightCursor] ?</div><div class="line">                <span class="built_in">array</span>[leftCursor++] : <span class="built_in">array</span>[rightCursor++];     <span class="comment">// 比较两半的大小，小的放进操作数组</span></div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (leftCursor &lt;= mid)                                   <span class="comment">// 此处及以下的 while 是将比较后未经过比较的元素依次放入操作数组</span></div><div class="line">    &#123;</div><div class="line">        workSpace[i++] = <span class="built_in">array</span>[leftCursor++];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (rightCursor &lt;= rightBound)                           <span class="comment">// 同上</span></div><div class="line">    &#123;</div><div class="line">        workSpace[i++] = <span class="built_in">array</span>[rightCursor++];</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    System.arraycopy(workSpace, <span class="number">0</span>, <span class="built_in">array</span>, leftBound, i);        <span class="comment">// 将操作数组中刚才排过序的元素拷贝至原数组</span></div><div class="line">                                                                <span class="comment">// 准备下一次更大粒度的归并</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="希尔排序-Shell-Sort"><a href="#希尔排序-Shell-Sort" class="headerlink" title="希尔排序(Shell Sort)"></a>希尔排序(Shell Sort)</h3><ul>
+<li>假设有一个长度为 10 的乱序数组array，可按照以下两步排序：</li>
+<li>使 array[0], array[4], array[8] 有序，array[1], array[5], array[9] 有序，array[2], array[6] 有序…总之使相隔 4 个元素有序(4-增量排序)。</li>
+<li>使 array[1], array[2], array[3] …有序，总之使相隔 1 个元素有序(1-增量排序)。</li>
+<li>经过 4-增量排序 之后能使 1-增量排序 速度提高更快。</li>
+<li>[4, 1] 被称之为<em>间隔序列</em>，可通过<code>h = h * 3 + 1</code>获得。<code>h</code>初始值为 1，不应大于数组长度。</li>
+<li>间隔序列的求得规则不仅是上述一条，可自行设计替换更好的规则(若有)。</li>
+<li>时间复杂度: 近似O(N * (logN) ^ 2)</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    <span class="keyword">int</span> length = rightBound - leftBound + <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> h = <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> nextH;</div><div class="line">    <span class="keyword">while</span> ((nextH = h * <span class="number">3</span> + <span class="number">1</span>) &lt; length)        <span class="comment">// 获取间隔序列的最大值</span></div><div class="line">    &#123;</div><div class="line">        h = nextH;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (h &gt; <span class="number">0</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="comment">// 按照如下数组下标遍历(以下为下标)</span></div><div class="line">        <span class="comment">// (0, 4), (1, 5), (2, 6), ...,(3, 7) , (0, 4, 8), (1, 5, 9): (inner..., outer)</span></div><div class="line">        <span class="comment">// 显然, outer 从 间隔值 h 开始</span></div><div class="line">        <span class="comment">// inner 有一个或多个值，在 h-增量排序 必要时需遍历 inner</span></div><div class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> outer = h + leftBound; outer &lt; length; outer++)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> outerTemp = <span class="built_in">array</span>[outer];</div><div class="line">            <span class="keyword">int</span> innerTemp;</div><div class="line">            <span class="keyword">int</span> inner = outer;</div><div class="line"></div><div class="line">            <span class="keyword">while</span> (inner &gt;= h + leftBound &amp;&amp;    <span class="comment">// 后续使用的 inner 实际是 inner-h，所以要大于 h</span></div><div class="line">                    (innerTemp = <span class="built_in">array</span>[inner - h]) &gt; outerTemp) <span class="comment">// 当 inner 值大于 outer 时，需要进行 h-增量排序</span></div><div class="line">            &#123;                                   <span class="comment">// 其实就是将 outer 值插入 h 序列的合适位置</span></div><div class="line">                                                <span class="comment">// 并将 h 序列该位置之后的元素都向后移一位</span></div><div class="line">                                                <span class="comment">// 若从数组角度看，应该是移 h 位</span></div><div class="line">                <span class="built_in">array</span>[inner] = innerTemp;</div><div class="line">                inner -= h;</div><div class="line">            &#125;</div><div class="line">            <span class="built_in">array</span>[inner] = outerTemp;</div><div class="line">        &#125;</div><div class="line">        h = (h - <span class="number">1</span>) / <span class="number">3</span>;                        <span class="comment">// 降序遍历间隔序列，使用下一个增量值(间隔)</span></div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="划分-Partition"><a href="#划分-Partition" class="headerlink" title="划分(Partition)"></a>划分(Partition)</h3><ul>
+<li>划分是快速排序的基础。</li>
+<li>本质是选择一个基准值，处理一个数组。</li>
+<li>小于基准值的元素在数组的一边，大于基准值的元素在数组的另一边。</li>
+<li>从左往右寻找大于基准值的元素，同时从右往左寻找小于基准值的元素，并交换。</li>
+<li>直到指针在中间重合结束。</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound, <span class="keyword">int</span> pivot)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    <span class="keyword">int</span> leftCursor = leftBound - <span class="number">1</span>;</div><div class="line">    <span class="keyword">int</span> rightCursor = rightBound + <span class="number">1</span>;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">while</span> (<span class="built_in">array</span>[++leftCursor] &lt; pivot)     <span class="comment">// 从左往右: 在发现大于基准值时跳出</span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">// do nothing</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">while</span> (<span class="built_in">array</span>[--rightCursor] &gt; pivot)     <span class="comment">// 从右往左: 在发现小于基准值时跳出</span></div><div class="line">        &#123;</div><div class="line">            <span class="comment">// do nothing</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (leftCursor &gt;= rightCursor)          <span class="comment">// 指针重合或超过，则停止</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            <span class="keyword">int</span> temp = <span class="built_in">array</span>[leftCursor];       <span class="comment">// 交换异常元素的位置</span></div><div class="line">            <span class="built_in">array</span>[leftCursor] = <span class="built_in">array</span>[rightCursor];</div><div class="line">            <span class="built_in">array</span>[rightCursor] = temp;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> leftCursor;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="快速排序-Quick-Sort"><a href="#快速排序-Quick-Sort" class="headerlink" title="快速排序(Quick Sort)"></a>快速排序(Quick Sort)</h3><ul>
+<li>基于<em>划分</em>。将一个数组通过一个pivot(中心值)划分为两部分，并在这两部分中继续递归划分。</li>
+<li>pivot 选择不当很可能出现划分不平衡的情况。比如一边为 1 一边为 N-1，时间复杂度在最坏情况下会上升至 O(N ^ 2)。</li>
+<li>下方代码使用了“三数据项取中”选择中心值的方法，取头尾中三元素并取其中值作为 pivot。</li>
+<li>“三数据项取中”时顺便可以将此三值做划分，优化算法。</li>
+<li>时间复杂度: O(N * logN)</li>
+</ul>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div><div class="line">87</div><div class="line">88</div><div class="line">89</div><div class="line">90</div><div class="line">91</div><div class="line">92</div><div class="line">93</div><div class="line">94</div><div class="line">95</div><div class="line">96</div><div class="line">97</div><div class="line">98</div><div class="line">99</div><div class="line">100</div><div class="line">101</div><div class="line">102</div><div class="line">103</div><div class="line">104</div><div class="line">105</div><div class="line">106</div><div class="line">107</div><div class="line">108</div><div class="line">109</div><div class="line">110</div><div class="line">111</div><div class="line">112</div><div class="line">113</div><div class="line">114</div><div class="line">115</div><div class="line">116</div><div class="line">117</div><div class="line">118</div><div class="line">119</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">quickSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="comment">// 参数验证略去</span></div><div class="line"></div><div class="line">    recQuickSort(<span class="built_in">array</span>, leftBound, rightBound);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">recQuickSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> length = rightBound - leftBound + <span class="number">1</span>;</div><div class="line">    <span class="keyword">if</span> (length &lt;= <span class="number">3</span>)                                <span class="comment">// 若数组长度小于等于 3，可以通过比较来排序</span></div><div class="line">    &#123;</div><div class="line">        manualSort(<span class="built_in">array</span>, leftBound, rightBound);</div><div class="line">        <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">int</span> mid = partition(<span class="built_in">array</span>, leftBound, rightBound);  <span class="comment">// 若数组长度大于3，划分数组</span></div><div class="line">    recQuickSort(<span class="built_in">array</span>, leftBound, mid - <span class="number">1</span>);            <span class="comment">// 并递归调用方法</span></div><div class="line">    recQuickSort(<span class="built_in">array</span>, mid + <span class="number">1</span>, rightBound);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> pivot = medianOf3(<span class="built_in">array</span>, leftBound, rightBound);</div><div class="line">    <span class="keyword">int</span> leftCursor = leftBound;                     <span class="comment">// 最左边的元素已经过“三数据项取中”时划分</span></div><div class="line">    <span class="keyword">int</span> rightCursor = rightBound - <span class="number">1</span>;               <span class="comment">// 最右边两个元素已经过“三数据项取中”时划分，无需再处理</span></div><div class="line"></div><div class="line">    <span class="keyword">while</span> (<span class="literal">true</span>)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">while</span> (<span class="built_in">array</span>[++leftCursor] &lt; pivot)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// do nothing</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">while</span> (<span class="built_in">array</span>[--rightCursor] &gt; pivot)</div><div class="line">        &#123;</div><div class="line">            <span class="comment">// do nothing</span></div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="keyword">if</span> (leftCursor &gt;= rightCursor)</div><div class="line">        &#123;</div><div class="line">            <span class="keyword">break</span>;</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span></div><div class="line">        &#123;</div><div class="line">            swap(<span class="built_in">array</span>, leftCursor, rightCursor);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    swap(<span class="built_in">array</span>, leftCursor, rightBound - <span class="number">1</span>);            <span class="comment">// 将保存的 pivot 替换至中间位置，这个位置将是该元素的最终位置</span></div><div class="line">    <span class="keyword">return</span> leftCursor;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">medianOf3</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> mid = (leftBound + rightBound) / <span class="number">2</span>;</div><div class="line">                                            <span class="comment">// 将“三数据项取中”的三个元素按照大小</span></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">array</span>[leftBound] &gt; <span class="built_in">array</span>[mid])      <span class="comment">// 最小的放左边，最大的放右边，中值放中间</span></div><div class="line">    &#123;</div><div class="line">        swap(<span class="built_in">array</span>, leftBound, mid);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">array</span>[leftBound] &gt; <span class="built_in">array</span>[rightBound])</div><div class="line">    &#123;</div><div class="line">        swap(<span class="built_in">array</span>, leftBound, rightBound);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">if</span> (<span class="built_in">array</span>[mid] &gt; <span class="built_in">array</span>[rightBound])</div><div class="line">    &#123;</div><div class="line">        swap(<span class="built_in">array</span>, mid, rightBound);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    swap(<span class="built_in">array</span>, mid, rightBound - <span class="number">1</span>);       <span class="comment">// 最后将中值置于右边倒数第二个位置，便于后续处理</span></div><div class="line">    <span class="keyword">return</span> <span class="built_in">array</span>[rightBound - <span class="number">1</span>];</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> id1, <span class="keyword">int</span> id2)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> temp = <span class="built_in">array</span>[id1];</div><div class="line">    <span class="built_in">array</span>[id1] = <span class="built_in">array</span>[id2];</div><div class="line">    <span class="built_in">array</span>[id2] = temp;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">manualSort</span><span class="params">(<span class="keyword">int</span>[] <span class="built_in">array</span>, <span class="keyword">int</span> leftBound, <span class="keyword">int</span> rightBound)</span></span></div><div class="line">&#123;</div><div class="line">    <span class="keyword">int</span> length = rightBound - leftBound + <span class="number">1</span>;</div><div class="line">    <span class="keyword">switch</span> (length)</div><div class="line">    &#123;</div><div class="line">        <span class="keyword">case</span> <span class="number">3</span>:</div><div class="line">            <span class="keyword">int</span> mid = leftBound + <span class="number">1</span>;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[leftBound] &gt; <span class="built_in">array</span>[mid])</div><div class="line">            &#123;</div><div class="line">                swap(<span class="built_in">array</span>, leftBound, mid);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[leftBound] &gt; <span class="built_in">array</span>[rightBound])</div><div class="line">            &#123;</div><div class="line">                swap(<span class="built_in">array</span>, leftBound, rightBound);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[mid] &gt; <span class="built_in">array</span>[rightBound])</div><div class="line">            &#123;</div><div class="line">                swap(<span class="built_in">array</span>, mid, rightBound);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">        <span class="keyword">case</span> <span class="number">2</span>:</div><div class="line">            <span class="keyword">if</span> (<span class="built_in">array</span>[leftBound] &gt; <span class="built_in">array</span>[rightBound])</div><div class="line">            &#123;</div><div class="line">                swap(<span class="built_in">array</span>, leftBound, rightBound);</div><div class="line">            &#125;</div><div class="line"></div><div class="line">            <span class="keyword">break</span>;</div><div class="line"></div><div class="line">        <span class="keyword">case</span> <span class="number">1</span>:</div><div class="line">            <span class="keyword">return</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<hr>
+<h3 id="基数排序"><a href="#基数排序" class="headerlink" title="基数排序"></a>基数排序</h3><ul>
+<li>TODO 并没有看懂。</li>
+</ul>
+<hr>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ol>
+<li>简单排序(冒泡，选择，插入)的时间复杂度都是 O(N ^ 2)，基本不会在长数组排序中使用。</li>
+<li>归并排序的时间复杂度为O(N * logN)，常见于某些数据库中。其中心思想是划分两个子数组并依次比较其元素。优点是耗时较短，缺点是需要另一个与原数组相同大小的内存空间。</li>
+<li>希尔排序的时间复杂度为O(N <em> logN ^ 2)，引入了“h-增量排序”的概念。h 一般为某个规则下的间隔序列，一般采用 `h = h </em> 3 + 1`，也可以使用别的间隔序列生成方式。</li>
+<li>快速排序的时间复杂度为O(N * logN)，其主要基于划分(即给定一个中心值，小于该值的靠一边，大于该值的靠另一边，一般会按照该中心值划分为两个子数组)，并且是递归划分。</li>
+<li>对于快排而言，糟糕的中心值选择会让划分失去平衡，最坏情况下时间复杂度能够上升至O(N ^ 2)。主流的中心值选择算法为“三数据取中”法。</li>
+<li>一个小问题：给定三个数，要求从小到大排序，如何通过比较实现？比较次序应为(12, 13, 23)。</li>
+</ol>
+<blockquote class="blockquote-center">新年快乐。</blockquote>
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+    <div>
+      
+        
+
+      
+    </div>
+
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/算法/" rel="tag"># 算法</a>
+          
+            <a href="/tags/排序/" rel="tag"># 排序</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/p/6ede22ad/dft-btree-0115.html" rel="next" title="<速记>关于 B 树">
+                <i class="fa fa-chevron-left"></i> <速记>关于 B 树
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+      <div class="ds-thread" data-thread-key="p/509e7cf3/dft-sort-algorithm-0126.html"
+           data-title="<速记>关于排序算法" data-url="http://www.lilzh.com/p/509e7cf3/dft-sort-algorithm-0126.html">
+      </div>
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+          <img class="site-author-image" itemprop="image"
+               src="/images/oops.png"
+               alt="Lil Zhang" />
+          <p class="site-author-name" itemprop="name">Lil Zhang</p>
+          <p class="site-description motion-element" itemprop="description"></p>
+        </div>
+        <nav class="site-state motion-element">
+        
+          
+            <div class="site-state-item site-state-posts">
+              <a href="/archives">
+                <span class="site-state-item-count">4</span>
+                <span class="site-state-item-name">日志</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">2</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">6</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/LilZhang" target="_blank" title="GitHub">
+                  
+                    <i class="fa fa-fw fa-github"></i>
+                  
+                  GitHub
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        
+        
+
+        
+
+
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#简单排序"><span class="nav-number">1.</span> <span class="nav-text">简单排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#冒泡排序-Bubble-Sort"><span class="nav-number">1.1.</span> <span class="nav-text">冒泡排序(Bubble Sort)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#选择排序-Select-Sort"><span class="nav-number">1.2.</span> <span class="nav-text">选择排序(Select Sort)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#插入排序-Insert-Sort"><span class="nav-number">1.3.</span> <span class="nav-text">插入排序(Insert Sort)</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#高级排序"><span class="nav-number">2.</span> <span class="nav-text">高级排序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#归并排序-Merge-Sort"><span class="nav-number">2.1.</span> <span class="nav-text">归并排序(Merge Sort)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#希尔排序-Shell-Sort"><span class="nav-number">2.2.</span> <span class="nav-text">希尔排序(Shell Sort)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#划分-Partition"><span class="nav-number">2.3.</span> <span class="nav-text">划分(Partition)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#快速排序-Quick-Sort"><span class="nav-number">2.4.</span> <span class="nav-text">快速排序(Quick Sort)</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#基数排序"><span class="nav-number">2.5.</span> <span class="nav-text">基数排序</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#小结"><span class="nav-number">3.</span> <span class="nav-text">小结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy;  2016 - 
+  <span itemprop="copyrightYear">2017</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Lil Zhang</span>
+</div>
+
+
+
+        
+
+        
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+  
+  <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+
+  
+  <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+
+  
+  <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+
+  
+  <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.0"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.0"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.0"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.0"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.0"></script>
+
+
+
+  
+
+  
+    
+  
+
+  <script type="text/javascript">
+    var duoshuoQuery = {short_name:"lilzh"};
+    (function() {
+      var ds = document.createElement('script');
+      ds.type = 'text/javascript';ds.async = true;
+      ds.id = 'duoshuo-script';
+      ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+      ds.charset = 'UTF-8';
+      (document.getElementsByTagName('head')[0]
+      || document.getElementsByTagName('body')[0]).appendChild(ds);
+    })();
+  </script>
+
+  
+    
+    
+    <script src="/lib/ua-parser-js/dist/ua-parser.min.js?v=0.7.9"></script>
+    <script src="/js/src/hook-duoshuo.js"></script>
+  
+
+
+
+
+
+
+
+
+
+
+  
+  
+
+  
+
+  
+
+  
+
+  
+
+
+</body>
+</html>
